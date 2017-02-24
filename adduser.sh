@@ -17,7 +17,7 @@ chmod 2775 /var/git
 apt -y install git
 
 echo "=== Firsttime you should exec below configuration ==="
-echo "$ git config --global user.name \"John Doe\"
+echo "$ git config --global user.name \"John Doe\""
 echo "$ git config --global user.email johndoe@example.com"
 echo "$ git config --global core.editor vi"
 
