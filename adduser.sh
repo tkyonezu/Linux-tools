@@ -20,5 +20,6 @@ echo "=== Firsttime you should exec below configuration ==="
 echo "$ git config --global user.name \"John Doe\""
 echo "$ git config --global user.email johndoe@example.com"
 echo "$ git config --global core.editor vi"
+echo "$ git config --global push.default simple"
 
 exit 0
