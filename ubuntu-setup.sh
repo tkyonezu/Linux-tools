@@ -107,8 +107,7 @@ if [ $(swapon -s | wc -l) -eq 0 ]; then
   swapon /swapfile
 
   logmsg "Add the following entry to /etc/fstab"
-  UUID=$(blkid /swapfile | sed -e 's/^.*UUID="//' -e 's/" TYPE=.*//')
-  echo "UUID=${UUID} none            swap    sw              0       0" | tee -a /etc/fstab
+  echo "/swapfile                                 none            swap    sw              0       0" | tee -a /etc/fstab
 fi
 
 # Update ubuntu
