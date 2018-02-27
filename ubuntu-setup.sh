@@ -21,16 +21,18 @@ error() {
 }
 
 if [ $(id -u) -ne 0 ]; then
-  error "You should be run as ROOT"
+  error "You should run as ROOT"
 fi
 
 if [ $# -lt 2 ]; then
   error "Usage: $0 <hostname> <user>"
 fi
 
+NEW_HOST=$1
+NEW_USER=$2		# New user name
+
 logmsg "1 Install packages"
-apt install -y git		# For VirtualBox image
-apt install -y make htop
+apt install -y curl git make htop
 
 # Install docker-ce
 logmsg "2. Install docker-ce"
@@ -59,18 +61,43 @@ mkswap /swapfile
 swapon /swapfile
 
 # Set hostname
-logmsg "5. Set hostname ($1)"
-echo $1 >/etc/hostname
+logmsg "5. Set hostname (${NEW_HOST})"
+echo ${NEW_HOST} >/etc/hostname
 
 # Change timezone
 logmsg "6. Change timezone (Asia/Tokyo)"
 timedatectl set-timezone Asia/Tokyo
 
+# Setup user
+logmsg "7. Setup user (${NEW_USER})"
+if [ "${NEW_USER}" = "ubuntu" ]; then
+  logmsg "ubuntu user don't do anything."
+else
+  if ! grep -q "^${NEW_USER}" /etc/passwd; then
+    useradd -ms /bin/bash ${NEW_USER}
+    NEW_UID=$(id -u)
+    NEW_GID=$(id -g)
+  fi
+
+  if [ ! -f /etc/sudoers.d/010_${NEW_USER}-nopasswd ]; then
+    echo "${NEW_USER} ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/010_${NEW_USER}-nopasswd
+    chmod 440 /etc/sudoers.d/010_${NEW_USER}-nopasswd
+  fi
+
+  cd ~/${NEW_USER}
+  mkdir -p .ssh
+  chown ${NEW_UID}:${NEW_GID} .ssh
+  chmod 700 .ssh
+  > .ssh/authorized_keys
+  chown ${NEW_UID}:${NEW_GID} .ssh/authorized_keys
+  chmod 600 .ssh/authorized_keys
+fi
+
 # Update ubuntu
-logmsg "7. Update ubuntu system"
+logmsg "8. Update ubuntu system"
 apt update
 apt upgrade -y
 
-logmsg "8. Reboot system."
+logmsg "9. Reboot system."
 
 exit 0
