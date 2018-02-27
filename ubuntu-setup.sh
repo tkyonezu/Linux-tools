@@ -103,6 +103,8 @@ logmsg "8. Update ubuntu system"
 apt update
 apt upgrade -y
 
+apt autoremove -y
+
 logmsg "9. Reboot system."
 
 exit 0
