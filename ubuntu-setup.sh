@@ -75,36 +75,35 @@ timedatectl set-timezone Asia/Tokyo
 
 # Setup user
 logmsg "7. Setup user (${NEW_USER})"
-if [ "${NEW_USER}" = "ubuntu" ]; then
-  logmsg "ubuntu user don't do anything."
-else
+if [ "${NEW_USER}" != "ubuntu" ]; then
   if ! grep -q "^${NEW_USER}" /etc/passwd; then
     useradd -ms /bin/bash ${NEW_USER}
   fi
-
-  NEW_UID=$(id -u ${NEW_USER})
-  NEW_GID=$(id -g ${NEW_USER})
 
   if [ ! -f /etc/sudoers.d/010_${NEW_USER}-nopasswd ]; then
     echo "${NEW_USER} ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/010_${NEW_USER}-nopasswd
     chmod 440 /etc/sudoers.d/010_${NEW_USER}-nopasswd
   fi
+fi
 
-  cd $(grep ^${NEW_USER} /etc/passwd | cut -d':' -f6)
-  if [ ! -d .ssh ]; then
-    mkdir -p .ssh
-    chown ${NEW_UID}:${NEW_GID} .ssh
-    chmod 700 .ssh
-  fi
-  if [ ! -f .ssh/authorized_keys ]; then
-    > .ssh/authorized_keys
-    chown ${NEW_UID}:${NEW_GID} .ssh/authorized_keys
-    chmod 600 .ssh/authorized_keys
-  fi
+NEW_UID=$(id -u ${NEW_USER})
+NEW_GID=$(id -g ${NEW_USER})
 
-  if ! id -Gn ${NEW_USER} | grep -q docker; then
-    usermod -aG docker ${NEW_USER}
-  fi
+cd $(grep ^${NEW_USER} /etc/passwd | cut -d':' -f6)
+if [ ! -d .ssh ]; then
+  mkdir -p .ssh
+  chown ${NEW_UID}:${NEW_GID} .ssh
+  chmod 700 .ssh
+fi
+
+if [ ! -f .ssh/authorized_keys ]; then
+  > .ssh/authorized_keys
+  chown ${NEW_UID}:${NEW_GID} .ssh/authorized_keys
+  chmod 600 .ssh/authorized_keys
+fi
+
+if ! id -Gn ${NEW_USER} | grep -q docker; then
+  usermod -aG docker ${NEW_USER}
 fi
 
 # Update ubuntu
