@@ -11,11 +11,16 @@
 
 COMPOSE_VERSION=1.19.0
 
-logmsg() {
+function install-docker-compose {
+  curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+}
+
+function logmsg {
   echo ">>> $1"
 }
 
-error() {
+function error {
   echo "ERROR: $1"
   exit 1
 }
@@ -55,8 +60,13 @@ apt install -y docker-ce
 
 # Install docker-compose
 logmsg "3. Install docker-compose"
-curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+if [ -x /usr/local/bin/docker-compose ]; then
+  if [ "$(docker-compose --version | awk '{ print $3 }' | sed 's/,$//')" != "${COMPOSE_VERSION}" ]; then
+    install-docker-compose
+  fi
+else
+  install-docker-compose
+fi
 
 # Set hostname
 logmsg "4. Set hostname (${NEW_HOST})"
