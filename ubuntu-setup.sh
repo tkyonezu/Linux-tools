@@ -75,8 +75,8 @@ if [ "${NEW_USER}" = "ubuntu" ]; then
 else
   if ! grep -q "^${NEW_USER}" /etc/passwd; then
     useradd -ms /bin/bash ${NEW_USER}
-    NEW_UID=$(id -u)
-    NEW_GID=$(id -g)
+    NEW_UID=$(id -u ${NEW_USER})
+    NEW_GID=$(id -g ${NEW_USER})
   fi
 
   if [ ! -f /etc/sudoers.d/010_${NEW_USER}-nopasswd ]; then
@@ -84,7 +84,7 @@ else
     chmod 440 /etc/sudoers.d/010_${NEW_USER}-nopasswd
   fi
 
-  cd ~/${NEW_USER}
+  cd ~${NEW_USER}
   mkdir -p .ssh
   chown ${NEW_UID}:${NEW_GID} .ssh
   chmod 700 .ssh
