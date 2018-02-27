@@ -24,12 +24,17 @@ if [ $(id -u) -ne 0 ]; then
   error "You should run as ROOT"
 fi
 
-if [ $# -lt 2 ]; then
-  error "Usage: $0 <hostname> <user>"
+if [ $# -lt 1 ]; then
+  error "Usage: $0 <hostname> [<user>]"
 fi
 
 NEW_HOST=$1
-NEW_USER=$2		# New user name
+
+if [ $# -eq 1 ]; then
+  NEW_USER=ubuntu
+else
+  NEW_USER=$2
+fi
 
 logmsg "1 Install packages"
 apt install -y curl git make htop
