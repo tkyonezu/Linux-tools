@@ -68,8 +68,8 @@ else
   install-docker-compose
 fi
 
-# Set hostname
-logmsg "4. Set hostname (${NEW_HOST})"
+# Setup hostname
+logmsg "4. Setup hostname (${NEW_HOST})"
 echo ${NEW_HOST} >/etc/hostname
 
 # Change timezone
