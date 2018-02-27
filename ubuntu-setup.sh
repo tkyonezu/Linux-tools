@@ -107,8 +107,8 @@ else
 fi
 
 # Add swapfile
+logmsg "7. Add swapfile"
 if [ $(swapon -s | wc -l) -eq 0 ]; then
-  logmsg "7. Add swapfile"
   logmsg "Create 4GB of swapfile and add it to /etc/fstab"
   dd if=/dev/zero of=/swapfile bs=1M count=4096
   chmod 600 /swapfile
