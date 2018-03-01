@@ -3,7 +3,7 @@
 #-----------------------------------------------------------------------
 # ubuntu-setup.sh - Ubuntu First setup script
 #
-# usage: ubuntu-setup.sh <hostname> <user>
+# usage: ubuntu-setup.sh <hostname> [<user> [<uid>]]
 #
 # Copyright (c) 2018 Takeshi Yonezu
 # All Rights Reserved.
@@ -30,7 +30,7 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 if [ $# -lt 1 ]; then
-  error "Usage: $0 <hostname> [<user>]"
+  error "Usage: $0 <hostname> [<user> [<uid>]]"
 fi
 
 NEW_HOST=$1
@@ -39,6 +39,12 @@ if [ $# -eq 1 ]; then
   NEW_USER=ubuntu
 else
   NEW_USER=$2
+fi
+
+if [ $# -gt 2 ]; then
+  NEW_UID=$3
+else
+  NEW_UID=0
 fi
 
 logmsg "1 Install packages"
@@ -82,7 +88,12 @@ if [ "${NEW_USER}" = "ubuntu" ]; then
   logmsg "ubuntu user don't do anything."
 else
   if ! grep -q "^${NEW_USER}" /etc/passwd; then
-    useradd -ms /bin/bash ${NEW_USER}
+    if [ ${NEW_UID} -ne 0 ]; then
+      groupadd -g ${NEW_UID} ${NEW_USER}
+      useradd -g ${NEW_UID} -u ${NEW_UID} -ms /bin/bash ${NEW_USER}
+    else
+      useradd -ms /bin/bash ${NEW_USER}
+    fi
   fi
 
   NEW_UID=$(id -u ${NEW_USER})
