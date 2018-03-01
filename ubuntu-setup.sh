@@ -9,6 +9,9 @@
 # All Rights Reserved.
 #-----------------------------------------------------------------------
 
+SWAP_SIZE_G=4				# 4GB
+SWAP_SIZE_M=$((${SWAP_SIZE_G * 1024))
+
 COMPOSE_VERSION=1.19.0
 
 function install-docker-compose {
@@ -129,8 +132,8 @@ fi
 # Add swapfile
 logmsg "7. Add swapfile"
 if [ $(swapon -s | wc -l) -eq 0 ]; then
-  logmsg "Create 4GB of swapfile and add it to /etc/fstab"
-  dd if=/dev/zero of=/swapfile bs=1M count=4096
+  logmsg "Create ${SWAP_SIZE_G}GB of swapfile and add it to /etc/fstab"
+  dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE_M}
   chmod 600 /swapfile
 
   mkswap /swapfile
