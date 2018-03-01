@@ -127,6 +127,10 @@ else
     chown ${NEW_UID}:${NEW_GID} .ssh/authorized_keys
     chmod 600 .ssh/authorized_keys
   fi
+
+  if ! id ${NEW_USER} | grep -q docker; then
+    usermod -aG docker ${NEW_USER}
+  fi
 fi
 
 # Add swapfile
