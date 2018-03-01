@@ -90,9 +90,18 @@ else
   if ! grep -q "^${NEW_USER}" /etc/passwd; then
     if [ ${NEW_UID} -ne 0 ]; then
       groupadd -g ${NEW_UID} ${NEW_USER}
+      if [ $? -ne 0 ]; then
+        error "groupadd (${NEW_UID}) for ${NEW_USER}"
+      fi
       useradd -g ${NEW_UID} -u ${NEW_UID} -ms /bin/bash ${NEW_USER}
+      if [ $? -ne 0 ]; then
+        error "useradd (${NEW_UID}) for ${NEW_USER}"
+      fi
     else
       useradd -ms /bin/bash ${NEW_USER}
+      if [ $? -ne 0 ]; then
+        error "useradd for (${NEW_USER})"
+      fi
     fi
   fi
 
