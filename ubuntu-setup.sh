@@ -133,8 +133,20 @@ else
   fi
 fi
 
+# Disable Guest session
+logmsg "7. Disable Guest session"
+if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
+  mkdir -p /etc/lightdm/lightdm.conf.d
+fi
+
+if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
+  cat <<EOF >/etc/lightdm/lightdm.conf.d/50-no-guest.conf
+[SeatDefaults]
+allow-guest=false
+EOF
+
 # Add swapfile
-logmsg "7. Add swapfile"
+logmsg "8. Add swapfile"
 if [ $(swapon -s | wc -l) -eq 0 ]; then
   logmsg "Create ${SWAP_SIZE_G}GB of swapfile and add it to /etc/fstab"
   dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE_M}
@@ -148,12 +160,12 @@ if [ $(swapon -s | wc -l) -eq 0 ]; then
 fi
 
 # Update ubuntu
-logmsg "8. Update ubuntu system"
+logmsg "9. Update ubuntu system"
 apt update
 apt upgrade -y
 
 apt autoremove -y
 
-logmsg "9. Reboot system."
+logmsg "10. Reboot system."
 
 exit 0
