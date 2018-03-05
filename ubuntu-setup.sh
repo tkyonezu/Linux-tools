@@ -135,15 +135,17 @@ fi
 
 # Disable Guest session
 logmsg "7. Disable Guest session"
-if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
-  mkdir -p /etc/lightdm/lightdm.conf.d
-fi
+if [ -d /etc/lightdm ]; then
+  if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
+    mkdir -p /etc/lightdm/lightdm.conf.d
+  fi
 
-if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
-  cat <<EOF >/etc/lightdm/lightdm.conf.d/50-no-guest.conf
+  if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
+    cat <<EOF >/etc/lightdm/lightdm.conf.d/50-no-guest.conf
 [SeatDefaults]
 allow-guest=false
 EOF
+  fi
 fi
 
 # Add swapfile
