@@ -144,6 +144,7 @@ if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
 [SeatDefaults]
 allow-guest=false
 EOF
+fi
 
 # Add swapfile
 logmsg "8. Add swapfile"
