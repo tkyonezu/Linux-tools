@@ -19,12 +19,16 @@ function install-docker-compose {
   chmod +x /usr/local/bin/docker-compose
 }
 
+msgno=0
+
 function logmsg {
+  ((msgno+=1))
+
   echo ">>> $1"
 }
 
 function error {
-  echo "ERROR: $1"
+  echo ">>> ERROR: $1"
   exit 1
 }
 
@@ -50,11 +54,11 @@ else
   NEW_UID=0
 fi
 
-logmsg "1 Install packages"
+logmsg "Install packages"
 apt install -y curl git make htop
 
 # Install docker-ce
-logmsg "2. Install docker-ce"
+logmsg "Install docker-ce"
 apt install -y apt-transport-https ca-certificates curl \
   software-properties-common
 
@@ -68,7 +72,7 @@ apt update
 apt install -y docker-ce
 
 # Install docker-compose
-logmsg "3. Install docker-compose"
+logmsg "Install docker-compose"
 if [ -x /usr/local/bin/docker-compose ]; then
   if [ "$(docker-compose --version | awk '{ print $3 }' | sed 's/,$//')" != "${COMPOSE_VERSION}" ]; then
     install-docker-compose
@@ -78,15 +82,17 @@ else
 fi
 
 # Setup hostname
-logmsg "4. Setup hostname (${NEW_HOST})"
-echo ${NEW_HOST} >/etc/hostname
+logmsg "Setup hostname (${NEW_HOST})"
+if [ "$(hostname)" != "${NEW_HOST}" ]; then
+  echo ${NEW_HOST} >/etc/hostname
+fi
 
 # Change timezone
-logmsg "5. Change timezone (Asia/Tokyo)"
+logmsg "Change timezone (Asia/Tokyo)"
 timedatectl set-timezone Asia/Tokyo
 
 # Setup user
-logmsg "6. Setup user (${NEW_USER})"
+logmsg "Setup user (${NEW_USER})"
 if [ "${NEW_USER}" = "ubuntu" ]; then
   logmsg "ubuntu user don't do anything."
 else
@@ -134,7 +140,7 @@ else
 fi
 
 # Disable Guest session
-logmsg "7. Disable Guest session"
+logmsg "Disable Guest session"
 if [ -d /etc/lightdm ]; then
   if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
     mkdir -p /etc/lightdm/lightdm.conf.d
@@ -149,7 +155,7 @@ EOF
 fi
 
 # Add swapfile
-logmsg "8. Add swapfile"
+logmsg "Add swapfile"
 if [ $(swapon -s | wc -l) -eq 0 ]; then
   logmsg "Create ${SWAP_SIZE_G}GB of swapfile and add it to /etc/fstab"
   dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE_M}
@@ -163,12 +169,12 @@ if [ $(swapon -s | wc -l) -eq 0 ]; then
 fi
 
 # Update ubuntu
-logmsg "9. Update ubuntu system"
+logmsg "Update ubuntu system"
 apt update
 apt upgrade -y
 
 apt autoremove -y
 
-logmsg "10. Reboot system."
+logmsg " Reboot system."
 
 exit 0
