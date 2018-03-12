@@ -35,41 +35,57 @@ else
   exit 1
 fi
 
-apt remove -y docker docker-engine docker-ce
+#!/bin/bash
 
-apt update
+OS_NAME=$(cat /etc/os-release | grep ^NAME | cut -d'"' -f2 | sed 's/ .*//')
 
-apt install -y apt-transport-https \
-  ca-certificates \
-  curl \
-  software-properties-common
+if [ "${OS_NAME}" = "CentOS" ]; then
+  yum install -y yum-utils device-mapper-persistent-data lvm2
 
-if [[ ${DOCKER_REPO} = "dockerproject.org" ]]; then
-  curl -fsSL https://apt.dockerproject.org/gpg | apt-key add -
+  yum-config-manager --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 
-  if [[ "${ARCH}" = "amd64" ]]; then
-    echo "deb [arch=${ARCH}] https://apt.dockerproject.org/repo \
-      ubuntu-$(lsb_release -cs) main" | \
-      tee /etc/apt/sources.list.d/docker.list
-  else
-    echo "deb [arch=${ARCH}] https://apt.dockerproject.org/repo \
-      raspbian-$(lsb_release -cs) main" | \
-      tee /etc/apt/sources.list.d/docker.list
-  fi
+  yum install -y docker-ce
+
+  systemctl start docker
+  systemctl enable docker
 else
-  if [[ "${ARCH}" = "amd64" ]]; then
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  apt remove -y docker docker-engine docker-ce
+  
+  apt update
+  
+  apt install -y apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+  
+  if [[ ${DOCKER_REPO} = "dockerproject.org" ]]; then
+    curl -fsSL https://apt.dockerproject.org/gpg | apt-key add -
+  
+    if [[ "${ARCH}" = "amd64" ]]; then
+      echo "deb [arch=${ARCH}] https://apt.dockerproject.org/repo \
+        ubuntu-$(lsb_release -cs) main" | \
+        tee /etc/apt/sources.list.d/docker.list
+    else
+      echo "deb [arch=${ARCH}] https://apt.dockerproject.org/repo \
+        raspbian-$(lsb_release -cs) main" | \
+        tee /etc/apt/sources.list.d/docker.list
+    fi
   else
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+    if [[ "${ARCH}" = "amd64" ]]; then
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    else
+      curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+    fi
+  
+    echo "deb [arch=${ARCH}] https://download.docker.com/linux/debian \
+      $(lsb_release -cs) stable" | \
+      tee /etc/apt/sources.list.d/docker.list
   fi
-
-  echo "deb [arch=${ARCH}] https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" | \
-    tee /etc/apt/sources.list.d/docker.list
+  
+  apt update
+  
+  apt install -y ${DOCKER_PKG}
 fi
-
-apt update
-
-apt install -y ${DOCKER_PKG}
 
 exit 0
