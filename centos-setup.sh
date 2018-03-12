@@ -133,6 +133,14 @@ if ! id ${NEW_USER} | grep -q docker; then
   usermod -aG docker ${NEW_USER}
 fi
 
+# vim color off
+if [ ! -f ~/.vimrc ]; then
+  cat <<EOF >~/.vimrc
+syntax off
+set nohlsearch
+EOF
+fi
+
 # Update CentOS
 logmsg "Update CentOS system"
 yum -y update
