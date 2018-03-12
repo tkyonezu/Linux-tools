@@ -3,6 +3,7 @@
 | name | Description |
 |---|---|
 | add-user.sh | add Git user account |
+| centos-setup.sh | CentOS 7 first setup script |
 | install-docker.sh | Install Docker (amd64, Darwin, armhf) |
 | install-go.sh | Install Go (Linux/x86_64, Darwin/x86_64, Linux/armv7l) |
 | install-pip3.sh | Install python3.5 and pip |
