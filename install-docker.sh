@@ -35,8 +35,6 @@ else
   exit 1
 fi
 
-#!/bin/bash
-
 OS_NAME=$(cat /etc/os-release | grep ^NAME | cut -d'"' -f2 | sed 's/ .*//')
 
 if [ "${OS_NAME}" = "CentOS" ]; then
