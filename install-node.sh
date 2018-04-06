@@ -18,6 +18,7 @@ logmsg() {
 #
 # Install Node.js
 #
+logmsg ">>> Install Node.js 8.x"
 
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 

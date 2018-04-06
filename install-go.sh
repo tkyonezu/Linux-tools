@@ -22,6 +22,8 @@ VERSION=1.10.1
 OS=$(uname -s)
 ARCH=$(uname -m)
 
+logmsg ">>> Install Go ${VERSION}"
+
 case ${OS} in
   Linux)  OS=linux;;
   Darwin) OS=darwin;;
