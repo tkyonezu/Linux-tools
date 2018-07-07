@@ -5,11 +5,13 @@
 #
 
 sudo apt update
-sudo apt upgrade
-sudo apt install docker.io
-sudo apt install zfsutils-linux  cgroup-bin cgroup-lite cgroup-tools cgroupfs-mount libcgroup1
-sudo cgroupfs-mount
+sudo apt upgrade -y
+sudo apt install -y docker.io
+sudo apt install -y zfsutils-linux  cgroup-bin cgroup-lite cgroup-tools cgroupfs-mount libcgroup1
+
 sudo usermod -aG docker $USER
+
+sudo cgroupfs-mount
 sudo service docker start
 
 exit 0
