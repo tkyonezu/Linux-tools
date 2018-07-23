@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------
 
 SWAP_SIZE_G=4				# 4GB
-SWAP_SIZE_M=$((${SWAP_SIZE_G * 1024))
+SWAP_SIZE_M=$((${SWAP_SIZE_G} * 1024))
 
 COMPOSE_VERSION=1.22.0
 
