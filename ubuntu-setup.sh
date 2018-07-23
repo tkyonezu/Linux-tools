@@ -9,6 +9,13 @@
 # All Rights Reserved.
 #-----------------------------------------------------------------------
 
+# Check WSL (Windows Subsystem for Linux)
+if echo $(uname -r) | grep -q Microsoft; then
+  WSL=1
+else
+  WSL=0
+fi
+
 SWAP_SIZE_G=4				# 4GB
 SWAP_SIZE_M=$((${SWAP_SIZE_G} * 1024))
 
@@ -89,7 +96,11 @@ fi
 
 # Change timezone
 logmsg "Change timezone (Asia/Tokyo)"
-timedatectl set-timezone Asia/Tokyo
+if [ ${WSL} -eq 1 ]; then
+  ln -sf /usr/share/zoneinfo/Asia/Tokyo
+else
+  timedatectl set-timezone Asia/Tokyo
+fi
 
 # Setup user
 logmsg "Setup user (${NEW_USER})"
@@ -140,32 +151,36 @@ else
 fi
 
 # Disable Guest session
-logmsg "Disable Guest session"
-if [ -d /etc/lightdm ]; then
-  if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
-    mkdir -p /etc/lightdm/lightdm.conf.d
-  fi
+if [ ${WSL} -eq 0 ]; then
+  logmsg "Disable Guest session"
+  if [ -d /etc/lightdm ]; then
+    if [ ! -d /etc/lightdm/lightdm.conf.d ]; then
+      mkdir -p /etc/lightdm/lightdm.conf.d
+    fi
 
-  if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
-    cat <<EOF >/etc/lightdm/lightdm.conf.d/50-no-guest.conf
+    if [ ! -f /etc/lightdm/lightdm.conf.d/50-no-guest.conf ]; then
+      cat <<EOF >/etc/lightdm/lightdm.conf.d/50-no-guest.conf
 [SeatDefaults]
 allow-guest=false
 EOF
+    fi
   fi
 fi
 
 # Add swapfile
-logmsg "Add swapfile"
-if [ $(swapon -s | wc -l) -eq 0 ]; then
-  logmsg "Create ${SWAP_SIZE_G}GB of swapfile and add it to /etc/fstab"
-  dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE_M}
-  chmod 600 /swapfile
+if [ ${WSL} -eq 0 ]; then
+  logmsg "Add swapfile"
+  if [ $(swapon -s | wc -l) -eq 0 ]; then
+    logmsg "Create ${SWAP_SIZE_G}GB of swapfile and add it to /etc/fstab"
+    dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE_M}
+    chmod 600 /swapfile
 
-  mkswap /swapfile
-  swapon /swapfile
+    mkswap /swapfile
+    swapon /swapfile
 
-  logmsg "Add the following entry to /etc/fstab"
-  echo "/swapfile                                 none            swap    sw              0       0" | tee -a /etc/fstab
+    logmsg "Add the following entry to /etc/fstab"
+    echo "/swapfile                                 none            swap    sw              0       0" | tee -a /etc/fstab
+  fi
 fi
 
 # Update ubuntu
@@ -175,6 +190,8 @@ apt upgrade -y
 
 apt autoremove -y
 
-logmsg " Reboot system."
+if [ ${WSL} -eq 0 ]; then
+  logmsg " Reboot system."
+fi
 
 exit 0
