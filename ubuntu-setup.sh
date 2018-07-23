@@ -97,7 +97,7 @@ fi
 # Change timezone
 logmsg "Change timezone (Asia/Tokyo)"
 if [ ${WSL} -eq 1 ]; then
-  ln -sf /usr/share/zoneinfo/Asia/Tokyo
+  ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 else
   timedatectl set-timezone Asia/Tokyo
 fi
