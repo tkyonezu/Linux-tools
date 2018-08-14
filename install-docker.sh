@@ -15,8 +15,10 @@
 #   apt-cache madison docker-ce
 #   apt install -y docker-ce=<VERSION>
 
-DOCKER_REPO="dockerproject.org"		# dockerproject.org or docker.com
-DOCKER_PKG="docker-engine"		# docker-engine or docker-ce
+## DOCKER_REPO="dockerproject.org"	# dockerproject.org or docker.com
+## DOCKER_PKG="docker-engine"		# docker-engine or docker-ce
+DOCKER_REPO="docker.com"		# dockerproject.org or docker.com
+DOCKER_PKG="docker-ce"			# docker-engine or docker-ce
 
 if [[ "$(uname -s)" = "Linux" && "$(uname -m)" = "x86_64" ]]; then
   echo "=== Linux ==="
@@ -52,10 +54,8 @@ else
   
   apt update
   
-  apt install -y apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+  apt install -y apt-transport-https ca-certificates \
+    curl gnupg2 software-properties-common
   
   if [[ ${DOCKER_REPO} = "dockerproject.org" ]]; then
     curl -fsSL https://apt.dockerproject.org/gpg | apt-key add -
@@ -73,10 +73,10 @@ else
     if [[ "${ARCH}" = "amd64" ]]; then
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     else
-      curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+      curl -fsSL https://download.docker.com/linux/raspbian/gpg | apt-key add -
     fi
   
-    echo "deb [arch=${ARCH}] https://download.docker.com/linux/debian \
+    echo "deb [arch=${ARCH}] https://download.docker.com/linux/raspbian \
       $(lsb_release -cs) stable" | \
       tee /etc/apt/sources.list.d/docker.list
   fi
