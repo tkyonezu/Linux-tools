@@ -133,6 +133,8 @@ else
     chmod 440 /etc/sudoers.d/010_${NEW_USER}-nopasswd
   fi
 
+  apt install -y ssh
+
   cd $(grep ^${NEW_USER} /etc/passwd | cut -d':' -f6)
   if [ ! -d .ssh ]; then
     mkdir -p .ssh
