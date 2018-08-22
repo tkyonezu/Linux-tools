@@ -3,6 +3,7 @@
 | name | Description |
 |---|---|
 | add-user.sh | add Git user account |
+| apt-update.sh | apt update remote hosts using by ssh |
 | centos-setup.sh | CentOS 7 first setup script |
 | docker-compose.sh | Install docker-compose (amd64, Darwin) |
 | install-docker.sh | Install Docker (amd64, Darwin, armhf) |
