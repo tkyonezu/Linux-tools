@@ -4,15 +4,19 @@
 function apt_update {
   HOST=$1
 
+  if [ "${HOST}" != "localhost" ]; then
+    RHOST="ssh ${HOST}"
+  fi
+
   echo ">>> Update (${HOST})"
 
-  RET=$(ssh ${HOST} env LANG=C sudo apt update 2>/dev/null | tail -1)
+  RET=$(${RHOST} env LANG=C sudo apt update 2>/dev/null | tail -1)
 
   if [ "${RET}" != "All packages are up to date." ]; then
     echo "# apt upgrade -y"
-    ssh ${HOST} sudo apt upgrade -y
+    ${RHOST} sudo apt upgrade -y
     echo "# apt autoremove"
-    ssh ${HOST} sudo apt autoremove
+    ${RHOST} sudo apt autoremove
   fi
 
   echo ">>> Update complete (${HOST})."
