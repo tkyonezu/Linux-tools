@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 function apt_update {
