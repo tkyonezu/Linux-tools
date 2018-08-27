@@ -9,9 +9,10 @@ function apt_update {
 
   echo ">>> Update (${HOST})"
 
-  RET=$(${RHOST} env LANG=C sudo apt update 2>/dev/null | tail -1)
+  RET=$(${RHOST} sudo apt update 2>/dev/null | tail -1)
 
-  if [ "${RET}" != "All packages are up to date." ]; then
+  if [[ "${RET}" != "All packages are up to date." &&
+        "${RET}" != "パッケージはすべて最新です。" ]]; then
     echo "# apt upgrade -y"
     ${RHOST} sudo apt upgrade -y
     echo "# apt autoremove"
