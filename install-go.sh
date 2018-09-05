@@ -18,7 +18,7 @@ logmsg() {
 #
 # Install Go
 #
-VERSION=1.10.3
+VERSION=1.11
 OS=$(uname -s)
 ARCH=$(uname -m)
 
