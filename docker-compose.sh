@@ -3,7 +3,7 @@
 # Install Docker Compose
 # https://docs.docker.com/compose/install/#install-compose
 
-COMPOSE_VERSION=1.23.1
+COMPOSE_VERSION=1.23.2
 
 curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
