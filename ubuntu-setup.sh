@@ -187,6 +187,9 @@ fi
 
 # Update ubuntu
 logmsg "Update ubuntu system"
+
+apt install -y vim
+
 apt update
 apt upgrade -y
 
