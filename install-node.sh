@@ -15,13 +15,21 @@ logmsg() {
   echo ">>> $1"
 }
 
+## NODEJS_VERSION="11.x"
+NODEJS_VERSION="10.x"
+## NODEJS_VERSION="8.x"
+
 #
 # Install Node.js
 #
-logmsg ">>> Install Node.js 8.x"
+# cf. https://github.com/nodesource/distributions#debinstall
+#
+logmsg ">>> Install Node.js ${NODEJS_VERSION}"
 
-curl -sL https://deb.nodesource.com/setup_8.x | bash -
+curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash -
 
-apt install -y node.js
+apt install -y nodejs
+
+node --version
 
 exit 0
