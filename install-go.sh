@@ -22,7 +22,7 @@ VERSION=1.12.1
 OS=$(uname -s)
 ARCH=$(uname -m)
 
-logmsg ">>> Install Go ${VERSION}"
+logmsg "Install Go ${VERSION}"
 
 case ${OS} in
   Linux)  OS=linux;;
@@ -33,7 +33,7 @@ esac
 case ${ARCH} in
   x86_64) ARCH=amd64;;
   armv7l) ARCH=armv6l;;
-  aarch64) ARCH=armv6l;;
+  aarch64) echo ">> install by sudo apt install golang"; exit 1;;
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
