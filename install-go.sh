@@ -18,7 +18,7 @@ logmsg() {
 #
 # Install Go
 #
-VERSION=1.12
+VERSION=1.12.1
 OS=$(uname -s)
 ARCH=$(uname -m)
 
@@ -33,6 +33,7 @@ esac
 case ${ARCH} in
   x86_64) ARCH=amd64;;
   armv7l) ARCH=armv6l;;
+  aarch64) ARCH=armv6l;;
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
