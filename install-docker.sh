@@ -33,6 +33,7 @@ case ${ARCH} in
   x86_64) ARCH=amd64; DIST=ubuntu;;
 # armv7l) ARCH=armhf; DIST=raspbian;;
   armv7l) ARCH=armhf; DIST=debian;;
+  aarch64) ARCH=arm64; DIST=ubuntu;;
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
