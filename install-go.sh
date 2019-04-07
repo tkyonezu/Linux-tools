@@ -46,9 +46,8 @@ tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 rm go$VERSION.$OS-$ARCH.tar.gz
 
 cat >>~/.bashrc <<EOF
-export GOPATH=/usr/local
-export GOROOT=/usr/local/go
-export PATH=\$PATH:\$GOROOT/bin
+export GOPATH=\${HOME}/go
+export PATH=\$PATH:/usr/local/go/bin
 EOF
 
 exit 0
