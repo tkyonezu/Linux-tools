@@ -18,7 +18,7 @@ logmsg() {
 #
 # Install Go
 #
-VERSION=1.12.9
+VERSION=1.13
 OS=$(uname -s)
 ARCH=$(uname -m)
 
@@ -47,7 +47,7 @@ rm go$VERSION.$OS-$ARCH.tar.gz
 
 cat >>~/.bashrc <<EOF
 export GOPATH=\${HOME}/go
-export PATH=\$PATH:/usr/local/go/bin
+export PATH=/usr/local/go/bin:\$PATH
 EOF
 
 exit 0
