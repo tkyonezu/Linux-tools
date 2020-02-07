@@ -15,7 +15,7 @@ logmsg() {
   echo ">>> $1"
 }
 
-## NODEJS_VERSION="12.15.0"
+NODEJS_VERSION="12.x"
 ## NODEJS_VERSION="11.x"
 ## NODEJS_VERSION="10.x"
 ## NODEJS_VERSION="8.x"
