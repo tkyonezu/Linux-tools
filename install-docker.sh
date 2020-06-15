@@ -32,9 +32,9 @@ esac
 DIST=$(cat /etc/os-release | grep ^ID= | sed 's/^ID=//')
 
 case ${ARCH} in
-  x86_64) ARCH=amd64;
-  armv7l) ARCH=armhf;
-  aarch64) ARCH=arm64;
+  x86_64) ARCH=amd64;;
+  armv7l) ARCH=armhf;;
+  aarch64) ARCH=arm64;;
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
