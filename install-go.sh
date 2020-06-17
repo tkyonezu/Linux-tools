@@ -30,6 +30,7 @@ case ${OS} in
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
+# arm64 is also supported and binaries are distributed from Go version 1.8.5
 case ${ARCH} in
   x86_64)  ARCH=amd64;;
   aarch64) ARCH=arm64;;
