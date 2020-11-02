@@ -19,7 +19,7 @@ fi
 SWAP_SIZE_G=4				# 4GB
 SWAP_SIZE_M=$((${SWAP_SIZE_G} * 1024))
 
-COMPOSE_VERSION=1.25.5
+COMPOSE_VERSION=1.27.4
 
 function install-docker-compose {
   curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
@@ -62,7 +62,8 @@ else
 fi
 
 logmsg "Install packages"
-apt install -y curl git make htop
+apt install -y automake build-essential ca-certificatees ccache \
+  libssl-dev pkg-config curl git make htop
 
 # Install docker-ce
 logmsg "Install docker-ce"
