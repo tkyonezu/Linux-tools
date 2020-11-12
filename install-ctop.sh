@@ -3,7 +3,7 @@
 # Install ctop
 # https://github.com/bcicen/ctop/releases
 
-CTOP_VERSION=0.7.3
+CTOP_VERSION=0.7.5
 
 HARDWARE=$(uname -m)
 SYSTEM=$(uname -s)
