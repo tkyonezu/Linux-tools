@@ -62,7 +62,7 @@ else
 fi
 
 logmsg "Install packages"
-apt install -y automake build-essential ca-certificatees ccache \
+apt install -y automake build-essential ca-certificates ccache \
   libssl-dev pkg-config curl git make htop
 
 # Install docker-ce
