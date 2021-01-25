@@ -11,6 +11,7 @@
 | install-go.sh | Install Go (Linux/x86_64, Darwin/x86_64, Linux/armv7l) |
 | install-node.sh | Install Node.js 8.x |
 | install-pip3.sh | Install python3.5 and pip |
+| install-protobuf.sh | Install Protobuf |
 | install-rust.sh | Install Rust |
 | install-wsl-docker.sh | Install docker on Windows10 WSL |
 | install-yarn.sh | Install Yarn |
