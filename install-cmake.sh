@@ -22,7 +22,7 @@ VERSION=3.14.0
 
 logmsg "Install CMake ${VERSION}"
 
-git clone https://github.kitware.com/cmake/cmake.git /tmp/cmake
+git clone https://gitlab.kitware.com/cmake/cmake.git /tmp/cmake
 cd /tmp/cmake
 git checkout bf02d625325535f485512eba307cff54c08bb257
 ./bootstrap --system-curl --parallel=4 --enable-ccache
