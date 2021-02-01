@@ -22,7 +22,8 @@ VERSION=3.14.0
 
 logmsg "Install CMake ${VERSION}"
 
-sudo apt install -y automake build-essential ca-certificates ccache curl git
+sudo apt install -y automake build-essential ca-certificates ccache \
+  libssl-dev curl libcurl4-openssl-dev git
 
 git clone https://gitlab.kitware.com/cmake/cmake.git /tmp/cmake
 cd /tmp/cmake
