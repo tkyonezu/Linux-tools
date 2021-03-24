@@ -19,7 +19,7 @@ fi
 SWAP_SIZE_G=4				# 4GB
 SWAP_SIZE_M=$((${SWAP_SIZE_G} * 1024))
 
-COMPOSE_VERSION=1.28.5
+COMPOSE_VERSION=1.28.6
 
 function install-docker-compose {
   curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
