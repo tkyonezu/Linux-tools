@@ -51,4 +51,6 @@ export GOPATH=\${HOME}/go
 export PATH=/usr/local/go/bin:\$PATH
 EOF
 
+go version
+
 exit 0
