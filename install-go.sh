@@ -35,6 +35,7 @@ case ${ARCH} in
   x86_64)  ARCH=amd64;;
   aarch64) ARCH=arm64;;
   armv7l)  ARCH=armv6l;;
+  arm64)   ARCH=arm64;;		# For Mac Apple M1 version
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
