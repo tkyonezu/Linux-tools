@@ -13,9 +13,11 @@
 | install-node.sh | Install Node.js 8.x |
 | install-pip3.sh | Install python3.5 and pip |
 | install-protobuf.sh | Install Protobuf |
-| install-rust.sh | Install Rust |
+| install-rust.sh | Install Rust, cargo-edit and cargo-make |
 | install-wsl-docker.sh | Install docker on Windows10 WSL |
 | install-yarn.sh | Install Yarn |
+| oci-desktop.sh | OCI (Oracle Cloud Infrastructure) Install Ubuntu-Desktop script |
+| oci-setup.sh | OCI (Oracle Cloud Infrastructure) first Setup script |
 | rmi-docker.sh | remove docker images |
 | unbuntu-setup.sh | Ubuntu first setup script |
 
