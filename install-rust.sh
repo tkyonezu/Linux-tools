@@ -37,18 +37,20 @@ if ! rustc --version >/dev/null 2>&1; then
   source $HOME/.profile
 fi
 
-if ! cargo-add --version >/dev/null; then
+if ! cargo-add --version >/dev/null 2>&1; then
   sudo apt install -y libssl-dev pkg-config
 
   cargo install cargo-edit
 fi
 
-if ! cargo make --version >/dev/null; then
+if ! cargo make --version >/dev/null 2>&1; then
   cd $HOME
   mkdir -p github.com/sagiegurari
+  cd github.com/sagiegurari
 
-  if [ ! -d github.com/sagiegurari/cargo-make ]; then
+  if [ ! -d cargo-make ]; then
     git clone https://github.com/sagiegurari/cargo-make.git
+
     cd cargo-make
     cargo install --force cargo-make
   fi
