@@ -6,8 +6,12 @@
 RELEASE_URL=https://github.com/docker/compose/releases/download
 DEST_DIR=/usr/local/bin
 
-## VERSION=v2.0.0-rc.3
-VERSION=1.29.2
+VERSION=v2.0.0
+## VERSION=1.29.2
+
+if [ $# -ge 1 ]; then
+  VERSION=$1
+fi
 
 if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
   case $(uname -s) in
