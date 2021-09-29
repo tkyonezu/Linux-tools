@@ -28,12 +28,14 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
 
-  sudo curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
-    -o ${DEST_DIR}/docker-compose-v2
+  mkdir -p ${HOME}/.docker/cli-plugins
 
-  sudo chmod +x ${DEST_DIR}/docker-compose-v2
+  curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
+    -o ${HOME}/.docker/cli-plugins/docker-compose
 
-  ${DEST_DIR}/docker-compose-v2 compose version
+  chmod +x ${HOME}/.docker/cli-plugins/docker-compose
+
+  docker compose version
 else
   case $(uname -s) in
     Darwin)  SYS=Darwin;;
