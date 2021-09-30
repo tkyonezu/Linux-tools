@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Compose V2
+# https://docs.docker.com/compose/cli-command/
+#
+# Where to get Docker COmpose - README.md
+# https://github.com/docker/compose#where-to-get-docker-compose
+#
 # Install Docker Compose
 # https://docs.docker.com/compose/install/#install-compose
 
 RELEASE_URL=https://github.com/docker/compose/releases/download
-DEST_DIR=/usr/local/bin
 
 VERSION=v2.0.0
 ## VERSION=1.29.2
@@ -28,14 +33,16 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
 
-  if [ ! -d /usr/libexec/docker/cli-plugins ]; then
-    sudo mkdir -p /usr/libexec/docker/cli-plugins
+  DEST_DIR=/usr/libexec/docker/cli-plugins
+
+  if [ ! -d ${DEST_DIR} ]; then
+    sudo mkdir -p ${DEST_DIR}
   fi
 
   sudo curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
-    -o /usr/libexec/docker/cli-plugins/docker-compose
+    -o ${DEST_DIR}/docker-compose
 
-  sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+  sudo chmod +x ${DEST_DIR}/docker-compose
 
   docker compose version
 else
@@ -49,6 +56,8 @@ else
     x86_64)  ARC=x86_64;;
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
+
+  DEST_DIR=/usr/local/bin
 
   sudo curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
     -o ${DEST_DIR}/docker-compose
