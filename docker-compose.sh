@@ -28,12 +28,14 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
 
-  mkdir -p ${HOME}/.docker/cli-plugins
+  if [ ! -d /usr/libexec/docker/cli-plugins ]; then
+    sudo mkdir -p /usr/libexec/docker/cli-plugins
+  fi
 
-  curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
-    -o ${HOME}/.docker/cli-plugins/docker-compose
+  sudo curl -L ${RELEASE_URL}/${VERSION}/docker-compose-${SYS}-${ARC} \
+    -o /usr/libexec/docker/cli-plugins/docker-compose
 
-  chmod +x ${HOME}/.docker/cli-plugins/docker-compose
+  sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
 
   docker compose version
 else
