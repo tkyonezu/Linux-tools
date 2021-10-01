@@ -11,7 +11,7 @@
 
 RELEASE_URL=https://github.com/docker/compose/releases/download
 
-VERSION=v2.0.0
+VERSION=v2.0.1
 ## VERSION=1.29.2
 
 if [ $# -ge 1 ]; then
@@ -28,7 +28,7 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
   case $(uname -m) in
     x86_64)  ARC=amd64;;  # Mac OS Intel and Linux 64bit
     arm64)   ARC=arm64;;  # Mac OS Apple M1
-    aarch64) ARC=arm64;;  # Raspberry Pi OS 64bit and Ubuntu 64bit
+    aarch64) ARC=aarch64;;  # Raspberry Pi OS 64bit and Ubuntu 64bit
     armv7l)  ARC=armv7;;  # Raspberry Pi OS 32bit 
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
@@ -44,7 +44,13 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
 
   sudo chmod +x ${DEST_DIR}/docker-compose
 
+  sudo ln -sf ${DEST_DIR}/docker-compose /usr/local/bin/docker-compose
+
+  echo "$ docker compose version"
   docker compose version
+
+  echo "$ docker-compose version"
+  docker-compose version
 else
   case $(uname -s) in
     Darwin)  SYS=Darwin;;
