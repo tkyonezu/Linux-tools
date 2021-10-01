@@ -26,8 +26,8 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
   esac
 
   case $(uname -m) in
-    x86_64)  ARC=amd64;;  # Mac OS Intel and Linux 64bit
-    arm64)   ARC=arm64;;  # Mac OS Apple M1
+    x86_64)  ARC=x86_64;;  # Mac OS Intel and Linux 64bit
+    arm64)   ARC=aarch64;;  # Mac OS Apple M1
     aarch64) ARC=aarch64;;  # Raspberry Pi OS 64bit and Ubuntu 64bit
     armv7l)  ARC=armv7;;  # Raspberry Pi OS 32bit 
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
