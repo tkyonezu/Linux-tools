@@ -44,9 +44,11 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
 
   sudo chmod +x ${DEST_DIR}/docker-compose
 
-  if [ ! -L /usr/local/bin/docker-compose ]; then
-    if [ ! -x /usr/local/bin/docker-compose-v1 ]; then
-      sudo mv /usr/local/bin/docker-compose /usr/local/bin/docker-compose-v1
+  if [ -x /usr/local/bin/docker-compose ]; then
+    if [ ! -L /usr/local/bin/docker-compose ]; then
+      if [ ! -x /usr/local/bin/docker-compose-v1 ]; then
+        sudo mv /usr/local/bin/docker-compose /usr/local/bin/docker-compose-v1
+      fi
     fi
   fi
 
