@@ -18,9 +18,9 @@ logmsg() {
 #
 # Install Go
 #
-## VERSION=1.17.3
+VERSION=1.17.3
 ## VERSION=1.16.10
-VERSION=1.15.15
+## VERSION=1.15.15
 OS=$(uname -s)
 ARCH=$(uname -m)
 
@@ -45,7 +45,7 @@ cd /var/tmp
 
 wget -N https://storage.googleapis.com/golang/go$VERSION.$OS-$ARCH.tar.gz
 
-tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 
 rm go$VERSION.$OS-$ARCH.tar.gz
 
