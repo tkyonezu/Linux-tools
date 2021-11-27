@@ -18,18 +18,18 @@ logmsg() {
 #
 # Install CMake
 #
-VERSION=3.14.0
+CMAKE_VERSION=3.22.0
+## CMAKE_VERSION=3.14.0
 
 logmsg "Install CMake ${VERSION}"
 
 sudo apt install -y automake build-essential ca-certificates ccache \
   libssl-dev curl libcurl4-openssl-dev git
 
-git clone https://gitlab.kitware.com/cmake/cmake.git /tmp/cmake
+git clone https://github.com/Kitware/CMake.git -b v${CMAKE_VERSION} /tmp/cmake
 cd /tmp/cmake
-git checkout bf02d625325535f485512eba307cff54c08bb257
-./bootstrap --system-curl --parallel=4 --enable-ccache
-make -j4
+./bootstrap --system-curl --parallel=$(nproc) --enable-ccache
+make -j$(nproc)
 sudo make install
 cd
 rm -fr /tmp/cmake
