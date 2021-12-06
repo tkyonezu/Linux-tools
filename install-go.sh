@@ -51,7 +51,7 @@ rm go$VERSION.$OS-$ARCH.tar.gz
 
 cat >>~/.bashrc <<EOF
 export GOPATH=\${HOME}/go
-export PATH=\%{HOME}/go/bin:/usr/local/go/bin:\${PATH}
+export PATH=\${HOME}/go/bin:/usr/local/go/bin:\${PATH}
 EOF
 
 /usr/local/go/bin/go version
