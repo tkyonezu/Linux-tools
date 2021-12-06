@@ -49,10 +49,12 @@ sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 
 rm go$VERSION.$OS-$ARCH.tar.gz
 
-cat >>~/.bashrc <<EOF
+if ! -q grep GOPATH ~/.bashrc; then
+  cat >>~/.bashrc <<EOF
 export GOPATH=\${HOME}/go
 export PATH=\${HOME}/go/bin:/usr/local/go/bin:\${PATH}
 EOF
+fi
 
 /usr/local/go/bin/go version
 
