@@ -28,9 +28,9 @@ NODEJS_VERSION="14.x"
 #
 logmsg ">>> Install Node.js ${NODEJS_VERSION}"
 
-curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash -
+curl -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | sudo bash -
 
-apt install -y nodejs
+sudo apt install -y nodejs
 
 node --version
 
