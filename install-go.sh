@@ -18,8 +18,8 @@ logmsg() {
 #
 # Install Go
 #
-VERSION=1.18.2
-## VERSION=1.17.10
+VERSION=1.18.3
+## VERSION=1.17.11
 ## VERSION=1.16.15
 ## VERSION=1.15.15
 OS=$(uname -s)
