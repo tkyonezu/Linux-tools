@@ -7,6 +7,7 @@
 | centos-setup.sh | CentOS 7 first setup script |
 | docker-compose.sh | Install docker-compose (amd64, Darwin) |
 | dra.sh | Remove all Docker images |
+| install-btop.sh | Install btop |
 | install-cmake.sh | Install CMake 3.14.0 |
 | install-ctop.sh | Install ctop (Linux/x86_64, Darwin/x86_64, Linux/armv7l) |
 | install-docker.sh | Install Docker (amd64, Darwin, armhf) |
