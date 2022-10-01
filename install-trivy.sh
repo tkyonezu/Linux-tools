@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install wget apt-transport-https gnupg lsb-release
+sudo apt install -y wget apt-transport-https gnupg lsb-release
 
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
 
