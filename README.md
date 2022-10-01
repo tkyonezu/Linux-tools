@@ -17,6 +17,7 @@
 | install-pip3.sh | Install python3.5 and pip |
 | install-protobuf.sh | Install Protobuf |
 | install-rust.sh | Install Rust, cargo-edit and cargo-make |
+| install-trivy.sh | Install Trivy |
 | install-wsl-docker.sh | Install docker on Windows10 WSL |
 | install-yarn.sh | Install Yarn |
 | oci-desktop.sh | OCI (Oracle Cloud Infrastructure) Install Ubuntu-Desktop script |
