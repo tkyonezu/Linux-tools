@@ -33,7 +33,8 @@ if [ "$(echo ${VERSION} | cut -c1,2)" = "v2" ]; then
     *) echo "$(uname -s)/$(uname -m) does'nt supported."; exit 1;;
   esac
 
-  DEST_DIR=/usr/libexec/docker/cli-plugins
+  ## DEST_DIR=/usr/libexec/docker/cli-plugins
+  DEST_DIR=/usr/local/lib/docker/cli-plugins
 
   if [ ! -d ${DEST_DIR} ]; then
     sudo mkdir -p ${DEST_DIR}
