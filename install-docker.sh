@@ -46,8 +46,10 @@ if [ -f /usr/share/keyrings/docker-archive-keyring.gpg ]; then
   sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
 fi
 
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
+  sudo mkdir -p /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+fi
 
 ## cat <<EOF | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 ## deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/${DIST} $(lsb_release -cs) stable
