@@ -45,12 +45,12 @@ esac
 
 cd /var/tmp
 
-wget -N https://storage.googleapis.com/golang/go$VERSION.$OS-$ARCH.tar.gz
+wget -N https://go.dev/dl/go${VERSION}.${OS}-${ARCH}.tar.gz
 
 sudo rm -fr /usr/local/go
-sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+sudo tar -C /usr/local -xzf go${VERSION}.${OS}-${ARCH}.tar.gz
 
-rm go$VERSION.$OS-$ARCH.tar.gz
+rm go${VERSION}.${OS}-${ARCH}.tar.gz
 
 if ! grep -q GOPATH ~/.bashrc; then
   cat >>~/.bashrc <<EOF
