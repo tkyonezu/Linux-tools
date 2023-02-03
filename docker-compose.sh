@@ -9,6 +9,11 @@
 # Install Docker Compose
 # https://docs.docker.com/compose/install/#install-compose
 
+echo "This method does'nt support now!!"
+echo "Please use 'docker-compose-plugin' as is."
+
+exit 0
+
 RELEASE_URL=https://github.com/docker/compose/releases/download
 
 VERSION=v2.15.1
