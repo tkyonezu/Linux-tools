@@ -58,4 +58,16 @@ echo \
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
+if ! cat /etc/group | grep ^docker | grep ${USER} >/dev/null; then
+  sudo usermod -aG docker ${USER}
+fi
+
+if [ -f /etc/docker/daemon.json ]; then
+  sudo cat <<EOF  >daemon.json
+{
+  "features": { "buildkit": true }
+}
+EOF
+fi
+
 exit 0
