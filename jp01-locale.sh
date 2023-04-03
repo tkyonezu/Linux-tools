@@ -5,4 +5,5 @@ sudo raspi-config nonint do_change_timezone    Asia/Tokyo
 sudo raspi-config nonint do_configure_keyboard jp
 sudo raspi-config nonint do_wifi_country       JP
 
+echo ">>> Automatic Reboot ..."
 sudo reboot
