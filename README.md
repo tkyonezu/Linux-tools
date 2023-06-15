@@ -6,6 +6,7 @@
 | apt-update.sh | apt update remote hosts using by ssh |
 | centos-setup.sh | CentOS 7 first setup script |
 | docker-compose.sh | Install docker-compose (amd64, Darwin) |
+| docker-desktop.sh | Install Docker Desktop |
 | dra.sh | Remove all Docker images |
 | install-btop.sh | Install btop |
 | install-cmake.sh | Install CMake 3.14.0 |
