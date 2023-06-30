@@ -38,6 +38,21 @@ case ${ARCH} in
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
+if [ "${DIST}" = \"almalinux\" ]; then
+  sudo dnf install -y yum-utils
+  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+  echo ">>> Correct Fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35"
+  sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  sudo systemctl start docker
+  sudo systemctl enable docker
+
+  sudo usermod -aG docker ${USER}
+
+  exit 0
+fi
+
 sudo apt install -y ca-certificates curl gnupg lsb-release
 
 ## curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
