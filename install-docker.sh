@@ -53,22 +53,22 @@ if [ "${DIST}" = \"almalinux\" ]; then
   exit 0
 fi
 
-sudo apt install -y ca-certificates curl gnupg lsb-release
-
-## curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+sudo apt install -y ca-certificates curl gnupg
 
 if [ -f /usr/share/keyrings/docker-archive-keyring.gpg ]; then
   sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
 fi
 
 if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
-  sudo mkdir -p /etc/apt/keyrings
+  sudo install -m 0755 -d /etc/apt/keyrings
   curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  sudo chmod a+r /etc/apt/keyrings/docker.gpg
 fi
 
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/${DIST} \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+  "$(. /etc/os-release && echo "${VERSION_CODENAME}")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
