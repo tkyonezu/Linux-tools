@@ -25,11 +25,38 @@ if [ $(id -u) -eq 0 ]; then
   exit 1
 fi
 
+DIST=$(cat /etc/os-release | grep ^ID= | sed 's/^ID=//')
+
 #
 # Install Rust
 #
 
 logmsg "Start Install Rust"
+
+if [ "${DIST}" = \"almalinux\" ]; then
+  if ! rustc --version >/dev/null 2>&1; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source ${HOME}/.profile
+    cargo --version
+  fi
+
+  if [ ! -x ${HOME}/.cargo/bin/cargo-add ]; then
+    cargo install cargo-edit
+  fi
+
+  if ! cargo make --version >/dev/null 2>&1; then
+    cd ${HOME}
+    mkdir -p github.com/sagiegurari
+
+    cd github.com/sagiegurari
+    git clone https://github.com/sagiegurari/cargo-make.git
+
+    cd cargo-make
+    cargo install --force cargo-make
+  fi
+
+  exit 0
+fi
 
 if ! rustc --version >/dev/null 2>&1; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
