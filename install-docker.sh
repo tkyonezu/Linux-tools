@@ -38,7 +38,7 @@ case ${ARCH} in
   *) echo "${OS}-${ARCH} does'nt supported yet."; exit 1;;
 esac
 
-if [ "${DIST}" = \"almalinux\" ]; then
+if [ "${DIST}" = \"almalinux\" || "${DIST}" = \"rocky\" ]; then
   sudo dnf install -y yum-utils
   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
