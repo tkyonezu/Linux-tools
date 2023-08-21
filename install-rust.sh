@@ -33,7 +33,7 @@ DIST=$(cat /etc/os-release | grep ^ID= | sed 's/^ID=//')
 
 logmsg "Start Install Rust"
 
-if [ "${DIST}" = \"almalinux\" ]; then
+if [ "${DIST}" = \"almalinux\" || "${DIST}" = \"rocky\" ]; then
   if ! rustc --version >/dev/null 2>&1; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source ${HOME}/.profile
