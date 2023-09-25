@@ -43,7 +43,7 @@ if [[ "${DIST}" = \"almalinux\" || "${DIST}" = \"rocky\" ]]; then
   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
   echo ">>> Correct Fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35"
-  sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
   sudo systemctl start docker
   sudo systemctl enable docker
