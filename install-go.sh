@@ -18,7 +18,7 @@ logmsg() {
 #
 # Install Go
 #
-VERSION=1.22.0
+VERSION=1.22.1
 ## VERSION=1.21.7
 ## VERSION=1.20.7
 ## VERSION=1.19.6
