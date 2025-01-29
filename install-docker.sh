@@ -59,14 +59,19 @@ if [ -f /usr/share/keyrings/docker-archive-keyring.gpg ]; then
   sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
 fi
 
-if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
+# Remove old version of gpg file
+if [ -f /etc/apt/keyrings/docker.gpg ]; then
+  sudo rm /etc/apt/keyrings/docker.gpg
+fi
+
+if [ ! -f /etc/apt/keyrings/docker.asc ]; then
   sudo install -m 0755 -d /etc/apt/keyrings
-  curl -fsSL https://download.docker.com/linux/${DIST}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  sudo curl -fsSL https://download.docker.com/linux/${DIST}/gpg -o /etc/apt/keyrings/docker.asc
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
 fi
 
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/${DIST} \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/${DIST} \
   "$(. /etc/os-release && echo "${VERSION_CODENAME}")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
