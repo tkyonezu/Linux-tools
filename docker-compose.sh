@@ -11,7 +11,7 @@
 
 RELEASE_URL=https://github.com/docker/compose/releases/download
 
-VERSION=v5.0.1
+VERSION=v5.0.2
 
 if [ $# -ge 1 ]; then
   VERSION=$1
